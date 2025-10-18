@@ -1,75 +1,96 @@
-// --- carrito.js ---
-function obtenerCarrito() {
-  return JSON.parse(localStorage.getItem('carrito')) || [];
+// Importar productos desde el archivo compartido
+import { products } from './products.js';
+
+// Cargar carrito desde localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Renderizar items del carrito
+function renderCartItems() {
+    const cartItemsContainer = document.getElementById('cartItems');
+    
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+            <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Tu carrito está vacío</p>
+                <a href="index.html" class="btn btn-primary">Ir a comprar</a>
+            </div>
+        `;
+        updateCartSummary();
+        return;
+    }
+    
+    cartItemsContainer.innerHTML = '';
+    
+    cart.forEach(item => {
+        // Buscar la imagen actual del producto desde el array compartido
+        const product = products.find(p => p.id === item.id);
+        const currentImage = product ? product.image : item.image;
+        
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+            <img src="${currentImage}" alt="${item.title}" class="cart-item-image">
+            <div class="cart-item-details">
+                <h3 class="cart-item-title">${item.title}</h3>
+                <p class="cart-item-price">$${item.price.toLocaleString('es-CL')}</p>
+            </div>
+            <div class="cart-item-controls">
+                <div class="quantity-controls">
+                    <button class="btn-quantity" onclick="decreaseQuantity(${item.id})">-</button>
+                    <span class="quantity-value">${item.quantity}</span>
+                    <button class="btn-quantity" onclick="increaseQuantity(${item.id})">+</button>
+                </div>
+                <button class="btn-remove" onclick="removeItem(${item.id})">Eliminar</button>
+            </div>
+        `;
+        
+        cartItemsContainer.appendChild(cartItem);
+    });
+    
+    updateCartSummary();
 }
 
-function guardarCarrito(carrito) {
-  localStorage.setItem('carrito', JSON.stringify(carrito));
+// Aumentar cantidad
+window.increaseQuantity = function(productId) {
+    const item = cart.find(i => i.id === productId);
+    if (item) {
+        item.quantity++;
+        saveCart();
+        renderCartItems();
+    }
 }
 
-// Renderizar los productos en el carrito
-function renderCarrito() {
-  const lista = document.getElementById('lista-carrito');
-  const totalEl = document.getElementById('total');
-  const carrito = obtenerCarrito();
-
-  lista.innerHTML = '';
-
-  if (carrito.length === 0) {
-    lista.innerHTML = '<p>Tu carrito está vacío.</p>';
-    totalEl.textContent = '';
-    return;
-  }
-
-  let total = 0;
-
-  carrito.forEach((prod, index) => {
-    const item = document.createElement('div');
-    item.classList.add('producto');
-    item.innerHTML = `
-      <h3>${prod.nombre}</h3>
-      <p>Precio: $${prod.precio.toLocaleString('es-CL')}</p>
-      <p>Cantidad: 
-        <button onclick="cambiarCantidad(${index}, -1)">-</button>
-        ${prod.cantidad}
-        <button onclick="cambiarCantidad(${index}, 1)">+</button>
-      </p>
-      <button onclick="eliminarProducto(${index})">Eliminar</button>
-    `;
-    lista.appendChild(item);
-    total += prod.precio * prod.cantidad;
-  });
-
-  totalEl.textContent = `Total: $${total.toLocaleString('es-CL')}`;
+// Disminuir cantidad
+window.decreaseQuantity = function(productId) {
+    const item = cart.find(i => i.id === productId);
+    if (item && item.quantity > 1) {
+        item.quantity--;
+        saveCart();
+        renderCartItems();
+    }
 }
 
-// Cambiar cantidad
-function cambiarCantidad(index, delta) {
-  const carrito = obtenerCarrito();
-  carrito[index].cantidad += delta;
-
-  if (carrito[index].cantidad <= 0) carrito.splice(index, 1);
-
-  guardarCarrito(carrito);
-  renderCarrito();
+// Eliminar item
+window.removeItem = function(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCart();
+    renderCartItems();
 }
 
-// Eliminar producto
-function eliminarProducto(index) {
-  const carrito = obtenerCarrito();
-  carrito.splice(index, 1);
-  guardarCarrito(carrito);
-  renderCarrito();
+// Actualizar resumen
+function updateCartSummary() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString('es-CL')}`;
+    document.getElementById('total').textContent = `$${subtotal.toLocaleString('es-CL')}`;
 }
 
-// Continuar al formulario
-document.getElementById('btnContinuar').addEventListener('click', () => {
-  const carrito = obtenerCarrito();
-  if (carrito.length === 0) {
-    alert('Agrega al menos un producto antes de continuar.');
-    return;
-  }
-  window.location.href = 'datos.html';
+// Guardar carrito
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+    renderCartItems();
 });
-
-document.addEventListener('DOMContentLoaded', renderCarrito);

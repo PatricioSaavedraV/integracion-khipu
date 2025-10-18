@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tienda - Integración Khipu</title>
-  <link rel="stylesheet" href="css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nassimba Store - Hardware y Periféricos Gamers</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-    <img src="public\img\Robot Sin Fondo.png" alt="Logo" class="logo" />
-    <h1>Tienda Demo con Khipu</h1>
-    <div class="carrito-icono">
-      <img src="img/carrito.png" alt="Carrito" id="carrito-btn">
-      <span id="contador-carrito">0</span>
-    </div>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="carrito.html">Carrito</a>
-    </nav>
-  </header>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo-section">
+                <img src="img/logo.png" alt="Nassimba Store" class="logo">
+                <h1>Nassimba Store</h1>
+            </a>
+            <div class="cart-icon-container">
+                <a href="carrito.html" id="cartLink" class="cart-link disabled">
+                    <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 2L7 6H3L6 20H18L21 6H17L15 2H9Z" stroke-width="2"/>
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="15" cy="21" r="1"/>
+                    </svg>
+                    <span id="cartCount" class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
-  <main>
-    <h2>Productos disponibles</h2>
-    <div class="productos">
-      <div class="producto">
-        <h3>Producto 1</h3>
-        <p>$10.000</p>
-        <button onclick="agregarAlCarrito('Producto 1', 10000)">Agregar al carrito</button>
-      </div>
+    <main class="container">
+        <section class="hero">
+            <h2>Hardware y Periféricos Gamers</h2>
+            <p>Los mejores productos para tu setup gaming</p>
+        </section>
 
-      <div class="producto">
-        <h3>Producto 2</h3>
-        <p>$15.000</p>
-        <button onclick="agregarAlCarrito('Producto 2', 15000)">Agregar al carrito</button>
-      </div>
-    </div>
-  </main>
+        <section class="products-grid" id="productsGrid">
+            <!-- Los productos se cargarán dinámicamente -->
+        </section>
+    </main>
 
-  <footer>
-    <p>© 2025 Tienda Demo</p>
-  </footer>
+    <footer>
+        <p>&copy; 2025 Nassimba Store - Todos los derechos reservados</p>
+    </footer>
 
-  <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

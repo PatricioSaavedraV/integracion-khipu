@@ -1,31 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrito</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - Nassimba Store</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-    <img src="img/logo.png" alt="Logo" class="logo" />
-    <h1>Tu Carrito</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-    </nav>
-  </header>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo-section">
+                <img src="img/logo.png" alt="Nassimba Store" class="logo">
+                <h1>Nassimba Store</h1>
+            </a>
+        </div>
+    </header>
 
-  <main>
-    <div id="lista-carrito"></div>
-    <p id="total"></p>
-    <button id="btnContinuar">Continuar</button>
-  </main>
+    <main class="container">
+        <div class="cart-header">
+            <h2>Resumen del Carrito</h2>
+        </div>
 
-  <footer>
-    <p>© 2025 Tienda Demo</p>
-  </footer>
+        <div class="cart-content">
+            <div id="cartItems" class="cart-items">
+                <!-- Los items del carrito se cargarán aquí -->
+            </div>
 
-  <script src="js/carrito.js"></script>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">$0</span>
+                </div>
+            </div>
+
+            <div class="cart-actions">
+                <a href="index.html" class="btn btn-secondary">Volver al Home</a>
+                <a href="datos.html" class="btn btn-primary">Continuar</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Nassimba Store - Todos los derechos reservados</p>
+    </footer>
+
+    <script type="module" src="js/carrito.js"></script>
 </body>
 </html>
-

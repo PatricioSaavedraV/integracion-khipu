@@ -1,27 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pagar con Khipu</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - Nassimba Store</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-    <img src="img/logo.png" alt="Logo" class="logo" />
-    <h1>Pago con Khipu</h1>
-  </header>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo-section">
+                <img src="img/logo.png" alt="Nassimba Store" class="logo">
+                <h1>Nassimba Store</h1>
+            </a>
+        </div>
+    </header>
 
-  <main>
-    <div class="pago-container">
-      <p>Procesando pago...</p>
-    </div>
-  </main>
+    <main class="container">
+        <div class="payment-container">
+            <h2>Procesar Pago</h2>
+            <p class="payment-subtitle">Complete su compra de forma segura</p>
 
-  <footer>
-    <p>© 2025 Tienda Demo</p>
-  </footer>
+            <div class="payment-summary">
+                <h3>Resumen de la Compra</h3>
+                <div id="paymentSummary"></div>
+                <div class="total-payment">
+                    <span>Total a Pagar:</span>
+                    <span id="totalPayment">$0</span>
+                </div>
+            </div>
 
-  <script src="js/main.js"></script>
+            <div class="khipu-container">
+                <h3>Método de Pago</h3>
+                <div class="khipu-placeholder">
+                    <p>🔒 Pago seguro con Khipu</p>
+                    <p class="placeholder-text">El botón de pago de Khipu se integrará aquí</p>
+                    <!-- Aquí se integrará el botón de Khipu -->
+                    <div id="khipuButton"></div>
+                </div>
+            </div>
+
+            <div class="payment-actions">
+                <a href="datos.html" class="btn btn-secondary">Volver</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Nassimba Store - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Cargar resumen de pago
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const buyer = JSON.parse(localStorage.getItem('buyerData')) || {};
+        
+        const summaryDiv = document.getElementById('paymentSummary');
+        const totalSpan = document.getElementById('totalPayment');
+        
+        let total = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            summaryDiv.innerHTML += `
+                <div class="payment-item">
+                    <span>${item.title} x${item.quantity}</span>
+                    <span>$${itemTotal.toLocaleString('es-CL')}</span>
+                </div>
+            `;
+        });
+        
+        totalSpan.textContent = `$${total.toLocaleString('es-CL')}`;
+        
+        // Aquí se integrará la lógica de Khipu más adelante
+        console.log('Datos del comprador:', buyer);
+        console.log('Total a pagar:', total);
+    </script>
 </body>
 </html>

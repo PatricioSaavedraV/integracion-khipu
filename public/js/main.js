@@ -1,57 +1,102 @@
-// --- main.js ---
-// Simulamos productos (en la versión final podrías traerlos de MercadoLibre o una API)
-const productos = [
-  { id: 1, nombre: "Teclado Mecánico RGB", precio: 49990 },
-  { id: 2, nombre: "Mouse Gamer Óptico", precio: 29990 },
-  { id: 3, nombre: "Audífonos Surround 7.1", precio: 69990 },
-  { id: 4, nombre: "Monitor 27'' Curvo 144Hz", precio: 249990 },
-  { id: 5, nombre: "Silla Gamer Reclinable", precio: 159990 },
-  { id: 6, nombre: "Micrófono USB Pro", precio: 59990 },
-  { id: 7, nombre: "Base Refrigerante Laptop", precio: 19990 },
-  { id: 8, nombre: "Control Inalámbrico", precio: 49990 },
-  { id: 9, nombre: "Alfombrilla XL RGB", precio: 14990 },
-  { id: 10, nombre: "Webcam Full HD", precio: 39990 }
-];
+// Importar productos desde el archivo compartido
+import { products } from './products.js';
 
-// Guarda el carrito en localStorage
-function guardarCarrito(carrito) {
-  localStorage.setItem('carrito', JSON.stringify(carrito));
+// Cargar carrito desde localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Renderizar productos
+function renderProducts() {
+    const productsGrid = document.getElementById('productsGrid');
+    productsGrid.innerHTML = '';
+    
+    products.forEach(product => {
+        const cartItem = cart.find(item => item.id === product.id);
+        const quantity = cartItem ? cartItem.quantity : 0;
+        
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <img src="${product.image}" alt="${product.title}" class="product-image">
+            <h3 class="product-title">${product.title}</h3>
+            <p class="product-price">$${product.price.toLocaleString('es-CL')}</p>
+            <div class="product-actions">
+                <div class="quantity-controls-product">
+                    <button class="btn-quantity-product" onclick="decreaseFromProduct(${product.id})" ${quantity === 0 ? 'disabled' : ''}>
+                        -
+                    </button>
+                    <div class="quantity-display-product">${quantity}</div>
+                    <button class="btn-quantity-product" onclick="increaseFromProduct(${product.id})">
+                        +
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        productsGrid.appendChild(productCard);
+    });
 }
 
-// Obtiene el carrito actual
-function obtenerCarrito() {
-  return JSON.parse(localStorage.getItem('carrito')) || [];
+// Aumentar cantidad desde producto
+window.increaseFromProduct = function(productId) {
+    const product = products.find(p => p.id === productId);
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            image: product.image,
+            quantity: 1
+        });
+    }
+    
+    saveCart();
+    updateCartUI();
+    renderProducts();
 }
 
-// Agrega un producto
-function agregarAlCarrito(nombre, precio) {
-  let carrito = obtenerCarrito();
-  const productoExistente = carrito.find(p => p.nombre === nombre);
-
-  if (productoExistente) {
-    productoExistente.cantidad++;
-  } else {
-    carrito.push({ nombre, precio, cantidad: 1 });
-  }
-
-  guardarCarrito(carrito);
-  alert(`${nombre} agregado al carrito.`);
+// Disminuir cantidad desde producto
+window.decreaseFromProduct = function(productId) {
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        if (existingItem.quantity > 1) {
+            existingItem.quantity--;
+        } else {
+            cart = cart.filter(item => item.id !== productId);
+        }
+        
+        saveCart();
+        updateCartUI();
+        renderProducts();
+    }
 }
 
-// Renderiza productos en la página
+// Actualizar UI del carrito
+function updateCartUI() {
+    const cartCount = document.getElementById('cartCount');
+    const cartLink = document.getElementById('cartLink');
+    
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+    
+    if (totalItems > 0) {
+        cartLink.classList.remove('disabled');
+    } else {
+        cartLink.classList.add('disabled');
+    }
+}
+
+// Guardar carrito
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Inicializar
 document.addEventListener('DOMContentLoaded', () => {
-  const contenedor = document.querySelector('.productos');
-  if (!contenedor) return;
-
-  contenedor.innerHTML = '';
-  productos.forEach(prod => {
-    const card = document.createElement('div');
-    card.classList.add('producto');
-    card.innerHTML = `
-      <h3>${prod.nombre}</h3>
-      <p>$${prod.precio.toLocaleString('es-CL')}</p>
-      <button onclick="agregarAlCarrito('${prod.nombre}', ${prod.precio})">Agregar al carrito</button>
-    `;
-    contenedor.appendChild(card);
-  });
+    renderProducts();
+    updateCartUI();
 });
