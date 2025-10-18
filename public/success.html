@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Exitoso - Nassimba Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            text-align: center;
+            background-color: var(--bg-card);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 3rem;
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background-color: #00ff88;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .success-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .success-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo-section">
+                <img src="img/logo.png" alt="Nassimba Store" class="logo">
+                <h1>Nassimba Store</h1>
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="success-container">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">¡Pago Exitoso!</h2>
+            <p class="success-message">
+                Tu compra ha sido procesada correctamente.<br>
+                Recibirás un correo de confirmación con los detalles de tu pedido.
+            </p>
+            <a href="index.html" class="btn btn-primary">Volver al Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Nassimba Store - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Limpiar el carrito después de un pago exitoso
+        localStorage.removeItem('cart');
+        localStorage.removeItem('buyerData');
+    </script>
+</body>
+</html>

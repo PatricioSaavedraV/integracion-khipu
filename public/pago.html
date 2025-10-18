@@ -34,9 +34,9 @@
                 <h3>Método de Pago</h3>
                 <div class="khipu-placeholder">
                     <p>🔒 Pago seguro con Khipu</p>
-                    <p class="placeholder-text">El botón de pago de Khipu se integrará aquí</p>
-                    <!-- Aquí se integrará el botón de Khipu -->
-                    <div id="khipuButton"></div>
+                    <div class="payment-actions">
+                    <button id="btnPagar" class="btn btn-primary">Pagar con Khipu</button>
+                </div>
                 </div>
             </div>
 
@@ -50,20 +50,22 @@
         <p>&copy; 2025 Nassimba Store - Todos los derechos reservados</p>
     </footer>
 
+    <!-- ========================== -->
+    <!-- 🧾 SCRIPT 1: Resumen de compra -->
+    <!-- ========================== -->
     <script>
-        // Cargar resumen de pago
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const buyer = JSON.parse(localStorage.getItem('buyerData')) || {};
-        
+
         const summaryDiv = document.getElementById('paymentSummary');
         const totalSpan = document.getElementById('totalPayment');
-        
+
         let total = 0;
-        
+
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
-            
+
             summaryDiv.innerHTML += `
                 <div class="payment-item">
                     <span>${item.title} x${item.quantity}</span>
@@ -71,12 +73,16 @@
                 </div>
             `;
         });
-        
+
         totalSpan.textContent = `$${total.toLocaleString('es-CL')}`;
-        
-        // Aquí se integrará la lógica de Khipu más adelante
+
         console.log('Datos del comprador:', buyer);
         console.log('Total a pagar:', total);
     </script>
+
+    <!-- ========================== -->
+    <!-- 🧾 SCRIPT 2: Lógica de pago con Khipu -->
+    <!-- ========================== -->
+    <script src="js/pago.js"></script>
 </body>
 </html>
