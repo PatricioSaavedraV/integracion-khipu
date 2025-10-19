@@ -9,7 +9,7 @@ export const products = [
     {
         id: 2,
         title: "Mouse Gamer Logitech G502 Hero",
-        price: 4500,
+        price: 20000,
         image: "img/mouse.png"
     },
     {

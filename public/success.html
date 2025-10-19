@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago Exitoso - Nassimba Store</title>
+    <title>Verificando Pago - Nassimba Store</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
         .success-container {
@@ -28,6 +28,16 @@
             font-size: 3rem;
         }
         
+        .loading-icon {
+            background-color: var(--primary-color);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
         .success-title {
             font-size: 2rem;
             color: var(--primary-color);
@@ -38,6 +48,23 @@
             color: var(--text-secondary);
             margin-bottom: 2rem;
             line-height: 1.6;
+        }
+
+        .payment-details {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .payment-details p {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .payment-details strong {
+            color: var(--text-primary);
         }
     </style>
 </head>
@@ -52,14 +79,14 @@
     </header>
 
     <main class="container">
-        <div class="success-container">
-            <div class="success-icon">✓</div>
-            <h2 class="success-title">¡Pago Exitoso!</h2>
-            <p class="success-message">
-                Tu compra ha sido procesada correctamente.<br>
-                Recibirás un correo de confirmación con los detalles de tu pedido.
+        <div class="success-container" id="statusContainer">
+            <div class="success-icon loading-icon" id="statusIcon">⏳</div>
+            <h2 class="success-title" id="statusTitle">Verificando Pago...</h2>
+            <p class="success-message" id="statusMessage">
+                Por favor espera mientras verificamos tu pago con el banco.
             </p>
-            <a href="index.html" class="btn btn-primary">Volver al Home</a>
+            <div class="payment-details" id="paymentDetails" style="display: none;"></div>
+            <a href="index.html" class="btn btn-primary" id="homeButton" style="display: none;">Volver al Home</a>
         </div>
     </main>
 
@@ -68,9 +95,85 @@
     </footer>
 
     <script>
-        // Limpiar el carrito después de un pago exitoso
-        localStorage.removeItem('cart');
-        localStorage.removeItem('buyerData');
+        // Verificar el estado del pago
+        async function verifyPayment() {
+            const paymentId = localStorage.getItem('current_payment_id');
+            
+            if (!paymentId) {
+                showError('No se encontró información del pago');
+                return;
+            }
+
+            try {
+                console.log('[v0] Verificando pago:', paymentId);
+
+                const response = await fetch(`/payment-status/${paymentId}`);
+                const data = await response.json();
+
+                console.log('[v0] Estado del pago:', data.status);
+
+                if (data.status === 'done') {
+                    showSuccess(data);
+                    // Limpiar el carrito solo si el pago fue exitoso
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('buyerData');
+                    localStorage.removeItem('current_payment_id');
+                    localStorage.removeItem('current_transaction_id');
+                } else if (data.status === 'pending') {
+                    showPending(data);
+                    // Reintentar en 3 segundos
+                    setTimeout(verifyPayment, 3000);
+                } else {
+                    showError('El pago no pudo ser completado');
+                }
+
+            } catch (error) {
+                console.error('[v0] Error al verificar pago:', error);
+                showError('Error al verificar el estado del pago');
+            }
+        }
+
+        function showSuccess(data) {
+            document.getElementById('statusIcon').innerHTML = '✓';
+            document.getElementById('statusIcon').classList.remove('loading-icon');
+            document.getElementById('statusTitle').textContent = '¡Pago Exitoso!';
+            document.getElementById('statusMessage').innerHTML = `
+                Tu compra ha sido procesada correctamente.<br>
+                Recibirás un correo de confirmación con los detalles de tu pedido.
+            `;
+            
+            const detailsDiv = document.getElementById('paymentDetails');
+            detailsDiv.style.display = 'block';
+            detailsDiv.innerHTML = `
+                <p><strong>ID de Pago:</strong> ${data.payment_id}</p>
+                <p><strong>Monto:</strong> $${data.amount.toLocaleString('es-CL')}</p>
+                <p><strong>Estado:</strong> Confirmado</p>
+            `;
+            
+            document.getElementById('homeButton').style.display = 'inline-block';
+        }
+
+        function showPending(data) {
+            document.getElementById('statusMessage').innerHTML = `
+                Tu pago está siendo procesado por el banco.<br>
+                Esto puede tomar unos momentos...
+            `;
+        }
+
+        function showError(message) {
+            document.getElementById('statusIcon').innerHTML = '⚠';
+            document.getElementById('statusIcon').style.backgroundColor = 'var(--danger)';
+            document.getElementById('statusIcon').classList.remove('loading-icon');
+            document.getElementById('statusTitle').textContent = 'Verificación Pendiente';
+            document.getElementById('statusMessage').innerHTML = `
+                ${message}<br><br>
+                Si realizaste el pago, recibirás un correo de confirmación cuando se complete la verificación.
+            `;
+            document.getElementById('homeButton').style.display = 'inline-block';
+        }
+
+        // Iniciar verificación al cargar la página
+        verifyPayment();
     </script>
 </body>
 </html>
