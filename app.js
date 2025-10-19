@@ -53,7 +53,7 @@ app.post('/create-payment', async (req, res) => {
     payer_name: `${buyerData.nombre} ${buyerData.apellido}`,
     
     // Descripción adicional
-    description: `Compra realizada por ${buyerData.nombre} ${buyerData.apellido}`,
+    description: `Compra de ${buyerData.nombre} ${buyerData.apellido} - RUT: ${buyerData.rut} - Tel: ${buyerData.telefono} - ${buyerData.direccion}, ${buyerData.comuna}, ${buyerData.region}`,
     
     // Identificador único de transacción
     transaction_id: `NASSIMBA-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,

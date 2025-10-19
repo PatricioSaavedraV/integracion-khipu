@@ -80,10 +80,11 @@
 
     <main class="container">
         <div class="success-container" id="statusContainer">
-            <div class="success-icon loading-icon" id="statusIcon">⏳</div>
-            <h2 class="success-title" id="statusTitle">Verificando Pago...</h2>
+            <div class="success-icon loading-icon" id="statusIcon">🔄</div>
+            <h2 class="success-title" id="statusTitle">Verificando con el Banco</h2>
             <p class="success-message" id="statusMessage">
-                Por favor espera mientras verificamos tu pago con el banco.
+                Tu pago está siendo verificado por el banco.<br>
+                Esto puede tomar unos momentos, por favor espera...
             </p>
             <div class="payment-details" id="paymentDetails" style="display: none;"></div>
             <a href="index.html" class="btn btn-primary" id="homeButton" style="display: none;">Volver al Home</a>
@@ -95,6 +96,11 @@
     </footer>
 
     <script>
+        let retryCount = 0;
+        const MAX_RETRIES = 50; // 50 intentos x 5 segundos = 4.2 minutos máximo
+        const RETRY_INTERVAL = 5000; // 5 segundos entre intentos
+        let verificationInterval = null;
+
         // Verificar el estado del pago
         async function verifyPayment() {
             const paymentId = localStorage.getItem('current_payment_id');
@@ -104,39 +110,59 @@
                 return;
             }
 
+            retryCount++;
+
+            // Si superamos el máximo de reintentos
+            if (retryCount > MAX_RETRIES) {
+                showTimeout();
+                return;
+            }
+
             try {
-                console.log('[v0] Verificando pago:', paymentId);
+                console.log(`[v0] Verificando pago (intento ${retryCount}/${MAX_RETRIES}):`, paymentId);
 
                 const response = await fetch(`/payment-status/${paymentId}`);
                 const data = await response.json();
 
                 console.log('[v0] Estado del pago:', data.status);
 
+                // Manejar diferentes estados
                 if (data.status === 'done') {
+                    // Pago completado exitosamente
+                    clearInterval(verificationInterval);
                     showSuccess(data);
-                    // Limpiar el carrito solo si el pago fue exitoso
-                    localStorage.removeItem('cart');
-                    localStorage.removeItem('buyerData');
-                    localStorage.removeItem('current_payment_id');
-                    localStorage.removeItem('current_transaction_id');
-                } else if (data.status === 'pending') {
-                    showPending(data);
-                    // Reintentar en 3 segundos
-                    setTimeout(verifyPayment, 3000);
+                    cleanupAfterSuccess();
+                    
+                } else if (data.status === 'verifying' || data.status === 'pending') {
+                    // Pago en verificación o pendiente - seguir esperando
+                    // No cambiar el mensaje, mantener el estado de "Verificando con el Banco"
+                    
+                } else if (data.status === 'rejected') {
+                    // Pago rechazado
+                    clearInterval(verificationInterval);
+                    showRejected(data);
+                    
                 } else {
-                    showError('El pago no pudo ser completado');
+                    // Estado desconocido - seguir esperando
+                    console.warn('[v0] Estado desconocido:', data.status);
                 }
 
             } catch (error) {
                 console.error('[v0] Error al verificar pago:', error);
-                showError('Error al verificar el estado del pago');
+                
+                // Si hay error de red y no hemos superado los reintentos, seguir intentando
+                if (retryCount >= MAX_RETRIES) {
+                    clearInterval(verificationInterval);
+                    showError('No se pudo verificar el estado del pago');
+                }
             }
         }
 
         function showSuccess(data) {
             document.getElementById('statusIcon').innerHTML = '✓';
             document.getElementById('statusIcon').classList.remove('loading-icon');
-            document.getElementById('statusTitle').textContent = '¡Pago Exitoso!';
+            document.getElementById('statusIcon').style.backgroundColor = '#00ff88';
+            document.getElementById('statusTitle').textContent = 'Pago Exitoso';
             document.getElementById('statusMessage').innerHTML = `
                 Tu compra ha sido procesada correctamente.<br>
                 Recibirás un correo de confirmación con los detalles de tu pedido.
@@ -153,18 +179,36 @@
             document.getElementById('homeButton').style.display = 'inline-block';
         }
 
-        function showPending(data) {
+        function showRejected(data) {
+            document.getElementById('statusIcon').innerHTML = '✕';
+            document.getElementById('statusIcon').style.backgroundColor = 'var(--danger)';
+            document.getElementById('statusIcon').classList.remove('loading-icon');
+            document.getElementById('statusTitle').textContent = 'Pago Rechazado';
             document.getElementById('statusMessage').innerHTML = `
-                Tu pago está siendo procesado por el banco.<br>
-                Esto puede tomar unos momentos...
+                Tu pago no pudo ser procesado.<br>
+                Por favor, intenta nuevamente o contacta a tu banco.
             `;
+            document.getElementById('homeButton').style.display = 'inline-block';
+        }
+
+        function showTimeout() {
+            document.getElementById('statusIcon').innerHTML = '⚠';
+            document.getElementById('statusIcon').style.backgroundColor = '#ff9800';
+            document.getElementById('statusIcon').classList.remove('loading-icon');
+            document.getElementById('statusTitle').textContent = 'Verificación en Proceso';
+            document.getElementById('statusMessage').innerHTML = `
+                La verificación está tomando más tiempo de lo esperado.<br><br>
+                Si completaste el pago, recibirás un correo de confirmación cuando se complete la verificación.<br>
+                Esto puede tomar algunos minutos.
+            `;
+            document.getElementById('homeButton').style.display = 'inline-block';
         }
 
         function showError(message) {
             document.getElementById('statusIcon').innerHTML = '⚠';
             document.getElementById('statusIcon').style.backgroundColor = 'var(--danger)';
             document.getElementById('statusIcon').classList.remove('loading-icon');
-            document.getElementById('statusTitle').textContent = 'Verificación Pendiente';
+            document.getElementById('statusTitle').textContent = 'Error de Verificación';
             document.getElementById('statusMessage').innerHTML = `
                 ${message}<br><br>
                 Si realizaste el pago, recibirás un correo de confirmación cuando se complete la verificación.
@@ -172,8 +216,22 @@
             document.getElementById('homeButton').style.display = 'inline-block';
         }
 
+        function cleanupAfterSuccess() {
+            // Limpiar el carrito y datos solo después de pago exitoso
+            localStorage.removeItem('cart');
+            localStorage.removeItem('buyerData');
+            localStorage.removeItem('current_payment_id');
+            localStorage.removeItem('current_transaction_id');
+        }
+
         // Iniciar verificación al cargar la página
+        console.log('[v0] Iniciando verificación de pago...');
+        
+        // Primera verificación inmediata
         verifyPayment();
+        
+        // Luego verificar cada 5 segundos
+        verificationInterval = setInterval(verifyPayment, RETRY_INTERVAL);
     </script>
 </body>
 </html>
