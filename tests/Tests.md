@@ -9,7 +9,7 @@
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/2.pago_sin_monto.png)
 ### Pago sin email
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/3.pago_sin_email.png)
-### Status del Pago
+### Status del pago
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/4.1.status_pago_done.png)
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/4.2.status_pago_pending.png)
 ### Status de pago inexistente
@@ -20,6 +20,19 @@
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/7.pagos_creados.png)
 ### Detalle de un pago en específico
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/8.detalle_pago.png)
+### Bancos disponibles
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/9.bancos_disponibles.png)
+### Confirmar pago manual
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/10.confirmar_pago_manual.png)
+### Borrar pago
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/11.borrar_pago.png)
+### Devolución pago
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/12.devolucion_manual.png)
+### Métodos de pago
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/14.metodo_pago.png)
+### Crear nueva cuenta de cobro
+#### No fue posible de utilizar
+
 
 ## Pruebas Flujo completo
 
