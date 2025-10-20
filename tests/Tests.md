@@ -23,7 +23,7 @@
 ### Bancos disponibles
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/35640ee0402f6c47110bbe666d675d9b58e85229/tests/img/9.bancos_disponibles.png)
 ### Confirmar pago manual
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/10.confirmar_pago_manual.png)
+##### No fue posible de utilizar
 ### Borrar pago
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/80779db1d29c118b1a75bce4651b426fc3284f78/tests/img/11.borrar_pago.png)
 ### Devolución pago
@@ -31,7 +31,7 @@
 ### Métodos de pago
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/80779db1d29c118b1a75bce4651b426fc3284f78/tests/img/14.metodo_pago.png)
 ### Crear nueva cuenta de cobro
-#### No fue posible de utilizar
+##### No fue posible de utilizar
 
 
 ## Pruebas Flujo completo
