@@ -25,11 +25,11 @@
 ### Confirmar pago manual
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/10.confirmar_pago_manual.png)
 ### Borrar pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/11.borrar_pago.png)
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/80779db1d29c118b1a75bce4651b426fc3284f78/tests/img/11.borrar_pago.png)
 ### Devolución pago
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/12.devolucion_manual.png)
 ### Métodos de pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/14.metodo_pago.png)
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/80779db1d29c118b1a75bce4651b426fc3284f78/tests/img/14.metodo_pago.png)
 ### Crear nueva cuenta de cobro
 #### No fue posible de utilizar
 
