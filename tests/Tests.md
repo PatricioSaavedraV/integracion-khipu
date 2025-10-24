@@ -4,32 +4,32 @@
 
 ## Pruebas a los Endpoints
 ### Creación de pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/7311e532261d50cb0e454b7634d8930f73cd4f92/tests/img/1.creacion_pago.jpg)
+![imagen prueba](img/1.creacion_pago.jpg)
 ### Pago sin monto
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/2.pago_sin_monto.png)
+![image alt](img/2.pago_sin_monto.jpg)
 ### Pago sin email
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/3.pago_sin_email.png)
+![image alt](img/3.pago_sin_email.jpg)
 ### Status del pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/4.1.status_pago_done.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/4.2.status_pago_pending.png)
+![image alt](img/4.1.status_pago_done.jpg)
+![image alt](img/4.2.status_pago_pending.jpg)
 ### Status de pago inexistente
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/5.status_pago_inexistente.png)
+![image alt](img/5.status_pago_inexistente.jpg)
 ### WebHook de notitificación de pago exitoso
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/6.webhook_pago_exitoso.png)
+![image alt](img/6.webhook_pago_exitoso.jpg)
 ### Detalle pagos creados
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/7.pagos_creados.png)
+![image alt](img/7.pagos_creados.jpg)
 ### Detalle de un pago en específico
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/8.detalle_pago.png)
+![image alt](img/8.detalle_pago.jpg)
 ### Bancos disponibles
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/35640ee0402f6c47110bbe666d675d9b58e85229/tests/img/9.bancos_disponibles.png)
+![image alt](img/9.bancos_disponibles.jpg)
 ### Confirmar pago manual
 ##### No fue posible de utilizar
 ### Borrar pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/80779db1d29c118b1a75bce4651b426fc3284f78/tests/img/11.borrar_pago.png)
+![image alt](img/11.borrar_pago.jpg)
 ### Devolución pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/eeca2db3c19b9e1f70c329c0c735f139717daeb5/tests/img/12.devolucion_manual.png)
+![image alt](img/12.devolucion_manual.jpg)
 ### Métodos de pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/80779db1d29c118b1a75bce4651b426fc3284f78/tests/img/14.metodo_pago.png)
+![image alt](img/14.metodo_pago.jpg)
 ### Crear nueva cuenta de cobro
 ##### No fue posible de utilizar
 
@@ -37,29 +37,29 @@
 ## Pruebas Flujo completo
 
 ### Escenario 1 - Compra Exitosa
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/1.seleccion_producto.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/2.carrito.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/3.1.datos_comprador.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/3.2.datos_comprador.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/4.resumen.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/5.0.metodo_pago.png)
+![image alt](img/Compra%20exitosa/1.seleccion_producto.jpg)
+![image alt](img/Compra%20exitosa/2.carrito.jpg)
+![image alt](img/Compra%20exitosa/3.1.datos_comprador.jpg)
+![image alt](img/Compra%20exitosa/3.2.datos_comprador.jpg)
+![image alt](img/Compra%20exitosa/4.resumen.jpg)
+![image alt](img/Compra%20exitosa/5.0.metodo_pago.jpg)
 
 #### Demo Bank
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/5.1.acceso_demo_bank.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/5.2.seleccion_cuenta.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/5.3.codigo_seguridad.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/5.4.pago_en_proceso_khipu.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/5.5.verificando_pago.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/5.6.pago_confirmado.png)
+![image alt](img/Compra%20exitosa/5.1.acceso_demo_bank.jpg)
+![image alt](img/Compra%20exitosa/5.2.seleccion_cuenta.jpg)
+![image alt](img/Compra%20exitosa/5.3.codigo_seguridad.jpg)
+![image alt](img/Compra%20exitosa/5.4.pago_en_proceso_khipu.jpg)
+![image alt](img/Compra%20exitosa/5.5.verificando_pago.jpg)
+![image alt](img/Compra%20exitosa/5.6.pago_confirmado.jpg)
 
 #### Transferencia Manual
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/6.1.pago_transferencia.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/6.2.datos_transferencia.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/6.3.ingreso_banco.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/6.3.transferencia.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Compra%20exitosa/6.4.pago_exitoso.png)
+![image alt](img/Compra%20exitosa/6.1.pago_transferencia.jpg)
+![image alt](img/Compra%20exitosa/6.2.datos_transferencia.jpg)
+![image alt](img/Compra%20exitosa/6.3.ingreso_banco.jpg)
+![image alt](img/Compra%20exitosa/6.3.transferencia.jpg)
+![image alt](img/Compra%20exitosa/6.4.pago_exitoso.jpg)
 
 ### Escenario 2 - Pago Cancelado
 #### "Volver al sitio de origen"
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Pago%20cancelado/5.metodo_pago.png)
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/Pago%20cancelado/6.pago_cancelado.png)
+![image alt](img/Pago%20cancelado/5.metodo_pago.jpg)
+![image alt](img/Pago%20cancelado/6.pago_cancelado.jpg)
