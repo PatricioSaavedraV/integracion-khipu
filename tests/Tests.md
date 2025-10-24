@@ -4,7 +4,7 @@
 
 ## Pruebas a los Endpoints
 ### Creación de pago
-![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/60462cbf3dc84e5ce25706837087222379cc0aea/tests/img/1.creacion_pago.png)
+![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/7311e532261d50cb0e454b7634d8930f73cd4f92/tests/img/1.creacion_pago.jpg)
 ### Pago sin monto
 ![image alt](https://github.com/PatricioSaavedraV/integracion-khipu/blob/fc6ccf0963fbe2a73a3f44ad924c8e02a43ccba8/tests/img/2.pago_sin_monto.png)
 ### Pago sin email
